@@ -1,0 +1,15 @@
+name: DPets
+version: 1.0.0
+main: me.firebreath15.dpets.DPets
+author: FireBreath15
+commands:
+  pet:
+    description: Donor Pets Main Command
+    usage: /pet redeem
+    permission: dpets.pet
+    permission-message: No permission homie!
+permissions:
+  dpets.pet:
+    default: true
+  dpets.give:
+    default: op
