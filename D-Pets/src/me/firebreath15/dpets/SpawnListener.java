@@ -11,6 +11,7 @@ import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -157,7 +158,37 @@ public class SpawnListener
         }
       }
 
-      if (lor.equalsIgnoreCase("iron_golem"))
+      if (lor.equalsIgnoreCase("zombie")){
+          if (p.getWorld().getAllowMonsters()) {
+            Entity ent = p.getWorld().spawnEntity(p.getLocation(), EntityType.ZOMBIE);
+            Zombie z = (Zombie)ent;
+            z.setCustomName("§a" + p.getName() + "'s Zombie");
+            z.setCustomNameVisible(true);
+            z.setRemoveWhenFarAway(false);
+            z.setMaxHealth(500d);
+
+            if (this.plugin.getConfig().contains(p.getName().toLowerCase() + ".pets")) {
+              List<String> pets = this.plugin.getConfig().getStringList(p.getName().toLowerCase() + ".pets");
+              pets.add(z.getUniqueId().toString());
+              this.plugin.getConfig().set(p.getName().toLowerCase() + ".pets", pets);
+              this.plugin.getConfig().set(z.getUniqueId().toString(), p.getName());
+              this.plugin.saveConfig();
+            } else {
+              List<String> pets = new ArrayList<String>();
+              pets.add(z.getUniqueId().toString());
+              this.plugin.getConfig().set(p.getName().toLowerCase() + ".pets", pets);
+              this.plugin.getConfig().set(z.getUniqueId().toString(), p.getName());
+              this.plugin.saveConfig();
+            }
+
+            p.sendMessage("§7[§6§lD-PETS§7] §aPet Spawned!");
+            p.getInventory().remove(p.getItemInHand());
+          } else {
+            p.sendMessage("§7[§6§lD-PETS§7] §cThis world blocks pet spawning!");
+          }
+      }
+      
+      if (lor.equalsIgnoreCase("iron_golem")){
         if (p.getWorld().getAllowAnimals()) {
           Entity ent = p.getWorld().spawnEntity(p.getLocation(), EntityType.IRON_GOLEM);
           IronGolem ig = (IronGolem)ent;
@@ -186,6 +217,7 @@ public class SpawnListener
         } else {
           p.sendMessage("§7[§6§lD-PETS§7] §cThis world blocks pet spawning!");
         }
+    }
     }
   }
 }

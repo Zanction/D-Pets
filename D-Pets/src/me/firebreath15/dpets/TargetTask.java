@@ -6,6 +6,7 @@ import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class TargetTask extends BukkitRunnable
@@ -53,6 +54,15 @@ public class TargetTask extends BukkitRunnable
         else {
           cr.setTarget(null);
         }
+      }
+      
+      if(ent instanceof Zombie){
+          Zombie z = (Zombie)this.ent;
+          if(p.getLocation().distance(ent.getLocation()) > 4){
+            z.setTarget(p);
+          }else{
+            z.setTarget(null);
+          }
       }
 
       if ((this.ent instanceof IronGolem)) {

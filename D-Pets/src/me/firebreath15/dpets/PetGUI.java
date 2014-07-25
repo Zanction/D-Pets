@@ -10,6 +10,7 @@ import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -82,8 +83,7 @@ public class PetGUI
 
         ent.remove();
         p.sendMessage("§7[§6§lD-PETS§7] §aPet Deleted! §7§oIt was sad to see you leave...");
-      }
-      else if (c.getType() == Material.LEVER) {
+      }else if (c.getType() == Material.LEVER) {
         e.setCancelled(true);
         p.closeInventory();
 
@@ -120,6 +120,17 @@ public class PetGUI
           }
         }
 
+        if(ent instanceof Zombie){
+            Zombie z = (Zombie)ent;
+            if(z.hasPotionEffect(PotionEffectType.SLOW)){
+              z.removePotionEffect(PotionEffectType.SLOW);
+              p.sendMessage("§7[§6§lD-PETS§7] §aPet is no longer idle");
+            }else{
+              z.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 72000, 5));
+              p.sendMessage("§7[§6§lD-PETS§7] §aPet can no longer move");
+            }
+        }
+        
         if ((ent instanceof Ocelot)) {
           Ocelot o = (Ocelot)ent;
           if (o.isSitting()) {
@@ -130,8 +141,7 @@ public class PetGUI
             p.sendMessage("§7[§6§lD-PETS§7] §aPet can no longer move");
           }
         }
-      }
-      else if (c.getType() == Material.MINECART) {
+      }else if (c.getType() == Material.MINECART) {
         e.setCancelled(true);
         p.closeInventory();
 
@@ -143,8 +153,7 @@ public class PetGUI
           new TargetTask(this.plugin, ent, p).runTaskTimer(this.plugin, 20L, 10L);
           p.sendMessage("§7[§6§lD-PETS§7] §aPet is now following you");
         }
-      }
-      else if (c.getType() == Material.BOOK) {
+      }else if (c.getType() == Material.BOOK) {
         e.setCancelled(true);
         p.closeInventory();
 
@@ -166,9 +175,10 @@ public class PetGUI
           if (o.getCatType() == Ocelot.Type.WILD_OCELOT) {
             o.setCatType(Ocelot.Type.RED_CAT);
           }
-        }
-        else if (((ent instanceof Creeper)) || ((ent instanceof IronGolem)) || ((ent instanceof Wolf))) {
-          p.sendMessage("§7[§6§lD-PETS§7] §cThat option has no effect on this type of pet");
+        }else{
+        	if(ent instanceof Wolf || ent instanceof IronGolem || ent instanceof Creeper || ent instanceof Zombie){
+        		p.sendMessage("§7[§6§lD-PETS§7] §cThat option has no effect for this type of pet!");
+        	}
         }
       }
   }
