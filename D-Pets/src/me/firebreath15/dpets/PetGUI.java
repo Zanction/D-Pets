@@ -81,7 +81,7 @@ public class PetGUI
         this.plugin.saveConfig();
 
         ent.remove();
-        p.sendMessage("§aPet Deleted! §7§oIt was sad to see you leave...");
+        p.sendMessage("§7[§6§lD-PETS§7] §aPet Deleted! §7§oIt was sad to see you leave...");
       }
       else if (c.getType() == Material.LEVER) {
         e.setCancelled(true);
@@ -91,10 +91,10 @@ public class PetGUI
           Wolf w = (Wolf)ent;
           if (w.isSitting()) {
             w.setSitting(false);
-            p.sendMessage("§aPet is no longer idle");
+            p.sendMessage("§7[§6§lD-PETS§7] §aPet is no longer idle");
           } else {
             w.setSitting(true);
-            p.sendMessage("§aPet can no longer move");
+            p.sendMessage("§7[§6§lD-PETS§7] §aPet can no longer move");
           }
         }
 
@@ -102,10 +102,10 @@ public class PetGUI
           Creeper cr = (Creeper)ent;
           if (cr.hasPotionEffect(PotionEffectType.SLOW)) {
             cr.removePotionEffect(PotionEffectType.SLOW);
-            p.sendMessage("§aPet is no longer idle");
+            p.sendMessage("§7[§6§lD-PETS§7] §aPet is no longer idle");
           } else {
             cr.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 72000, 5));
-            p.sendMessage("§aPet can no longer move");
+            p.sendMessage("§7[§6§lD-PETS§7] §aPet can no longer move");
           }
         }
 
@@ -113,10 +113,10 @@ public class PetGUI
           IronGolem ig = (IronGolem)ent;
           if (ig.hasPotionEffect(PotionEffectType.SLOW)) {
             ig.removePotionEffect(PotionEffectType.SLOW);
-            p.sendMessage("§aPet is no longer idle");
+            p.sendMessage("§7[§6§lD-PETS§7] §aPet is no longer idle");
           } else {
             ig.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 72000, 5));
-            p.sendMessage("§aPet can no longer move");
+            p.sendMessage("§7[§6§lD-PETS§7] §aPet can no longer move");
           }
         }
 
@@ -124,10 +124,10 @@ public class PetGUI
           Ocelot o = (Ocelot)ent;
           if (o.isSitting()) {
             o.setSitting(false);
-            p.sendMessage("§aPet is no longer idle");
+            p.sendMessage("§7[§6§lD-PETS§7] §aPet is no longer idle");
           } else {
             o.setSitting(true);
-            p.sendMessage("§aPet can no longer move");
+            p.sendMessage("§7[§6§lD-PETS§7] §aPet can no longer move");
           }
         }
       }
@@ -137,11 +137,11 @@ public class PetGUI
 
         if (ent.hasMetadata("Pets_Following")) {
           ent.removeMetadata("Pets_Following", this.plugin);
-          p.sendMessage("§aPet is no longer following you");
+          p.sendMessage("§7[§6§lD-PETS§7] §aPet is no longer following you");
         } else {
           ent.setMetadata("Pets_Following", new FixedMetadataValue(this.plugin, Boolean.valueOf(true)));
           new TargetTask(this.plugin, ent, p).runTaskTimer(this.plugin, 20L, 10L);
-          p.sendMessage("§aPet is now following you");
+          p.sendMessage("§7[§6§lD-PETS§7] §aPet is now following you");
         }
       }
       else if (c.getType() == Material.BOOK) {
@@ -168,7 +168,7 @@ public class PetGUI
           }
         }
         else if (((ent instanceof Creeper)) || ((ent instanceof IronGolem)) || ((ent instanceof Wolf))) {
-          p.sendMessage("§cThat option has no effect on this type of pet");
+          p.sendMessage("§7[§6§lD-PETS§7] §cThat option has no effect on this type of pet");
         }
       }
   }

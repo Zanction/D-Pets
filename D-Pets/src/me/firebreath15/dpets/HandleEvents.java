@@ -82,7 +82,7 @@ public class HandleEvents
           PetGUI.openGUI(e.getPlayer(), e.getRightClicked());
         }
       }
-      else e.getPlayer().sendMessage("§cThat is not your pet!");
+      else e.getPlayer().sendMessage("§7[§6§lD-PETS§7] §4That is not your pet!");
     }
   }
 

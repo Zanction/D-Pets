@@ -5,11 +5,18 @@ author: FireBreath15
 commands:
   pet:
     description: Donor Pets Main Command
-    usage: /pet redeem
+    usage: /pet <redeem|(username)> [type]
     permission: dpets.pet
-    permission-message: No permission homie!
+    permission-message: No permission!
+  dpets:
+    description: Donor Pets Main Command
+    usage: /dpets <redeem|(username)> [type]
+    permission: dpets.pet
+    permission-message: No permission!
 permissions:
   dpets.pet:
+    default: true
+  dpets.dpets:
     default: true
   dpets.give:
     default: op

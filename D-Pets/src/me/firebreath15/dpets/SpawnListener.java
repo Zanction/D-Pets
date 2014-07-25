@@ -3,7 +3,6 @@ package me.firebreath15.dpets;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
@@ -43,7 +42,7 @@ public class SpawnListener
           if (rm != null) {
             ApplicableRegionSet set = rm.getApplicableRegions(e.getPlayer().getLocation());
             if (set.size() > 0)
-              e.getPlayer().sendMessage("§cYou cannot spawn your pet here!");
+              e.getPlayer().sendMessage("§7[§6§lD-PETS§7] §cYou cannot spawn your pet here!");
             else
               spawnPet(e.getPlayer());
           }
@@ -84,10 +83,10 @@ public class SpawnListener
             this.plugin.saveConfig();
           }
 
-          p.sendMessage(ChatColor.GREEN + "Pet Spawned!");
+          p.sendMessage("§7[§6§lD-PETS§7] §aPet Spawned!");
           p.getInventory().remove(p.getItemInHand());
         } else {
-          p.sendMessage("§cThis world blocks mob spawning!");
+          p.sendMessage("§7[§6§lD-PETS§7] §cThis world blocks mob spawning!");
         }
       }
 
@@ -117,10 +116,10 @@ public class SpawnListener
             this.plugin.saveConfig();
           }
 
-          p.sendMessage(ChatColor.GREEN + "Pet Spawned!");
+          p.sendMessage("§7[§6§lD-PETS§7] §aPet Spawned!");
           p.getInventory().remove(p.getItemInHand());
         } else {
-          p.sendMessage("§cThis world blocks mob spawning!");
+          p.sendMessage("§7[§6§lD-PETS§7] §cThis world blocks mob spawning!");
         }
       }
 
@@ -151,10 +150,10 @@ public class SpawnListener
             this.plugin.saveConfig();
           }
 
-          p.sendMessage(ChatColor.GREEN + "Pet Spawned!");
+          p.sendMessage("§7[§6§lD-PETS§7] §aPet Spawned!");
           p.getInventory().remove(p.getItemInHand());
         } else {
-          p.sendMessage("§cThis world blocks mob spawning!");
+          p.sendMessage("§7[§6§lD-PETS§7] §cThis world blocks mob spawning!");
         }
       }
 
@@ -182,10 +181,10 @@ public class SpawnListener
             this.plugin.saveConfig();
           }
 
-          p.sendMessage(ChatColor.GREEN + "Pet Spawned!");
+          p.sendMessage("§7[§6§lD-PETS§7] §aPet Spawned!");
           p.getInventory().remove(p.getItemInHand());
         } else {
-          p.sendMessage("§cThis world blocks pet spawning!");
+          p.sendMessage("§7[§6§lD-PETS§7] §cThis world blocks pet spawning!");
         }
     }
   }

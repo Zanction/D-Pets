@@ -37,7 +37,7 @@ public class DPets extends JavaPlugin
   @SuppressWarnings({ "deprecation", "unchecked", "rawtypes" })
 public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
   {
-    if (cmd.getName().equalsIgnoreCase("pet")) {
+    if (cmd.getName().equalsIgnoreCase("pet") || cmd.getName().equalsIgnoreCase("dpets")) {
       if ((sender instanceof Player)) {
         Player p = (Player)sender;
         if (args.length == 1) {
@@ -88,10 +88,10 @@ public boolean onCommand(CommandSender sender, Command cmd, String label, String
                 }
               } catch (Exception localException) {
               }
-            } else { p.sendMessage("§4You do not have any pets to redeem"); }
+            } else { p.sendMessage("§7[§6§lD-PETS§7] §4You do not have any pets to redeem"); }
           }
           else {
-            p.sendMessage("§cInvalid command or usage!");
+            p.sendMessage("§7[§6§lD-PETS§7] §cInvalid command or usage!");
           }
         }
         else if (args.length == 2)
@@ -115,21 +115,21 @@ public boolean onCommand(CommandSender sender, Command cmd, String label, String
                   Bukkit.getPlayer(args[0]).sendMessage("§e>>§c§lREDEEM YOUR PET WITH §a§l/PET REDEEM§c§l!§e<<");
                   Bukkit.getPlayer(args[0]).playSound(Bukkit.getPlayer(args[0]).getLocation(), Sound.LEVEL_UP, 5.0F, 1.0F);
                 } else {
-                  getServer().dispatchCommand(getServer().getConsoleSender(), "mail send " + args[0] + " Your pet is waiting to be redeemed! Use /pet redeem!");
+                  getServer().dispatchCommand(getServer().getConsoleSender(), "mail send " + args[0] + " Your pet is waiting to be redeemed! Use /dpets redeem!");
                 }
 
-                p.sendMessage("§aPet was gifted successfully!");
+                p.sendMessage("§7[§6§lD-PETS§7] §aPet was gifted successfully!");
               } else {
-                p.sendMessage("§cInvalid pet type! Use §eCat, Wolf, Creeper, §cor §eIron_Golem");
+                p.sendMessage("§7[§6§lD-PETS§7] §cInvalid pet type! Use §eCat, Wolf, Creeper, §cor §eIron_Golem");
               }
             }
-            else p.sendMessage("§cYou don't have permission!");
+            else p.sendMessage("§7[§6§lD-PETS§7] §cYou don't have permission!");
           }
           else
-            p.sendMessage("§c/pet redeem");
+            p.sendMessage("§c/dpets redeem");
         }
         else {
-          p.sendMessage("§c/pet <redeem|(username)> [cat|wolf|iron_golem|creeper]");
+          p.sendMessage("§c/dpets <redeem|(username)> [type]");
         }
 
       }
@@ -150,12 +150,12 @@ public boolean onCommand(CommandSender sender, Command cmd, String label, String
           Bukkit.getPlayer(args[0]).sendMessage("§e>>§c§lREDEEM YOUR PET WITH §a§l/PET REDEEM§c§l!§e<<");
           Bukkit.getPlayer(args[0]).playSound(Bukkit.getPlayer(args[0]).getLocation(), Sound.LEVEL_UP, 5.0F, 1.0F);
         } else {
-          getServer().dispatchCommand(getServer().getConsoleSender(), "mail send " + args[0] + " Your pet is waiting to be redeemed! Use /pet redeem!");
+          getServer().dispatchCommand(getServer().getConsoleSender(), "mail send " + args[0] + " Your pet is waiting to be redeemed! Use /dpets redeem!");
         }
 
-        sender.sendMessage("§aPet was gifted!");
+        sender.sendMessage("§7[§6§lD-PETS§7] §aPet was gifted!");
       } else {
-        sender.sendMessage("§cInvalid pet type! Use §eCat, Wolf, Creeper, §cor §eIron_Golem");
+        sender.sendMessage("§7[§6§lD-PETS§7] §cInvalid pet type! Use §eCat, Wolf, Creeper, §cor §eIron_Golem");
       }
 
       return true;
