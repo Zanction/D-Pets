@@ -21,47 +21,40 @@ import org.bukkit.inventory.ItemStack;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 
-public class SpawnListener
-  implements Listener
-{
+public class SpawnListener implements Listener{
   DPets plugin;
-
-  SpawnListener(DPets c)
-  {
-    this.plugin = c;
+  SpawnListener(DPets c){
+    plugin = c;
   }
 
   @EventHandler
   public void onSpawnPet(PlayerInteractEvent e) {
-    if (((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK)) && 
-      (e.getPlayer().getItemInHand().getType() == Material.NAME_TAG)) {
+    if((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getPlayer().getItemInHand().getType() == Material.NAME_TAG)){
       ItemStack tag = e.getPlayer().getItemInHand();
-      if ((tag.hasItemMeta()) && 
-        (tag.getItemMeta().getDisplayName().equalsIgnoreCase("§aSpawn Pet")))
-        if (this.plugin.getWorldGuard() != null) {
+      if(tag.hasItemMeta() && tag.getItemMeta().getDisplayName().equalsIgnoreCase("§aSpawn Pet")){
+        if(plugin.getWorldGuard() != null){
           RegionManager rm = this.plugin.getWorldGuard().getRegionManager(e.getPlayer().getWorld());
-          if (rm != null) {
+          if(rm != null){
             ApplicableRegionSet set = rm.getApplicableRegions(e.getPlayer().getLocation());
-            if (set.size() > 0)
+            if(set.size() > 0){
               e.getPlayer().sendMessage("§7[§6§lD-PETS§7] §cYou cannot spawn your pet here!");
-            else
+            }else{
               spawnPet(e.getPlayer());
-          }
-          else {
+            }
+          }else{
             spawnPet(e.getPlayer());
           }
-        }
-        else {
+        }else{
           spawnPet(e.getPlayer());
         }
+      }
     }
   }
 
-  private void spawnPet(Player p)
-  {
+  private void spawnPet(Player p){
     List<String> lore = p.getItemInHand().getItemMeta().getLore();
 
-    for (String lor : lore) {
+    for(String lor : lore){
       if (lor.equalsIgnoreCase("creeper")) {
         if (p.getWorld().getAllowMonsters()) {
           Entity ent = p.getWorld().spawnEntity(p.getLocation(), EntityType.CREEPER);

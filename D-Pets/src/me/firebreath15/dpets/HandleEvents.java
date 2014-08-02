@@ -1,9 +1,13 @@
 package me.firebreath15.dpets;
 
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -26,30 +30,85 @@ public class HandleEvents
   @EventHandler
   public void handleFollowing(EntityTargetLivingEntityEvent e){
     Entity ent = e.getEntity();
-    if(this.plugin.getConfig().contains(ent.getUniqueId().toString()) && e.getTarget() instanceof Player){
+    if(plugin.getConfig().contains(ent.getUniqueId().toString()) && e.getTarget() instanceof Player){
       Player t = (Player)e.getTarget();
-      if (!this.plugin.getConfig().getString(ent.getUniqueId().toString()).equalsIgnoreCase(t.getName()))
+      if(!plugin.getConfig().getString(ent.getUniqueId().toString()).equalsIgnoreCase(t.getName())){
         e.setTarget(null);
+      }
     }
   }
 
+  @EventHandler
+  public void onPetTargetPet(EntityTargetLivingEntityEvent e){
+	  if(e.getEntity() instanceof IronGolem){
+		  IronGolem ig = (IronGolem)e.getEntity();
+		  
+		  if(ig.getTarget() instanceof Zombie){
+			  Zombie z = (Zombie)e.getTarget();
+			  if(plugin.getConfig().contains(z.getUniqueId().toString())){
+				  ig.setTarget(null);
+			  }
+		  }
+		  
+		  if(ig.getTarget() instanceof Wolf){
+			  Wolf w = (Wolf)e.getTarget();
+			  if(plugin.getConfig().contains(w.getUniqueId().toString())){
+				  ig.setTarget(null);
+			  }
+		  }
+		  
+		  if(ig.getTarget() instanceof Creeper){
+			  Creeper cr = (Creeper)e.getTarget();
+			  if(plugin.getConfig().contains(cr.getUniqueId().toString())){
+				  ig.setTarget(null);
+			  }
+		  }
+	  }else{
+		  if(e.getEntity() instanceof Wolf){
+			  Wolf w = (Wolf)e.getEntity();
+			  
+			  if(w.getTarget() instanceof Zombie){
+				  Zombie z = (Zombie)e.getTarget();
+				  if(plugin.getConfig().contains(z.getUniqueId().toString())){
+					  w.setTarget(null);
+				  }
+			  }
+			  
+			  if(w.getTarget() instanceof Wolf){
+				  Wolf ww = (Wolf)e.getTarget();
+				  if(plugin.getConfig().contains(ww.getUniqueId().toString())){
+					  w.setTarget(null);
+				  }
+			  }
+			  
+			  if(w.getTarget() instanceof Creeper){
+				  Creeper cr = (Creeper)e.getTarget();
+				  if(plugin.getConfig().contains(cr.getUniqueId().toString())){
+					  w.setTarget(null);
+				  }
+			  }
+		  }
+	  }
+  }
+  
   @EventHandler
   public void onPetHurtOwner(EntityDamageByEntityEvent e){
     if(this.plugin.getConfig().contains(e.getDamager().getUniqueId().toString()) && e.getEntity() instanceof Player){
       Player p = (Player)e.getEntity();
       if(this.plugin.getConfig().getString(e.getDamager().getUniqueId().toString()).equalsIgnoreCase(p.getName())){
         e.setCancelled(true);
-        e.getDamager().removeMetadata("Pets_Following", this.plugin);
+        e.getDamager().removeMetadata("Pets_Following", plugin);
       }
     }
   }
 
   @EventHandler
   public void handleFollowingII(EntityExplodeEvent e){
-    if((e.getEntity() instanceof Creeper)){
+    if(e.getEntity() instanceof Creeper){
       Entity ent = e.getEntity();
-      if (this.plugin.getConfig().contains(ent.getUniqueId().toString()))
+      if(plugin.getConfig().contains(ent.getUniqueId().toString())){
         e.setCancelled(true);
+      }
     }
   }
 
@@ -81,6 +140,17 @@ public class HandleEvents
     }
   }
 
+  @EventHandler
+  public void onPlayerUseNametag(PlayerInteractEntityEvent e){
+	  Player p = e.getPlayer();
+	  if(p.getItemInHand().getType()==Material.NAME_TAG){
+		 if(p.getItemInHand().hasItemMeta() && p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§aSpawn Pet")){
+			 e.setCancelled(true);
+			 p.sendMessage("§7[§6§lD-PETS§7] §cPlease click the air or ground to spawn your pet!");
+		 }
+	  }
+  }
+  
   @EventHandler
   public void handlePetDamages(EntityDamageEvent e){
     Entity ent = e.getEntity();

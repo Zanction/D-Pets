@@ -9,55 +9,52 @@ import org.bukkit.entity.Wolf;
 import org.bukkit.entity.Zombie;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class TargetTask extends BukkitRunnable
-{
+public class TargetTask extends BukkitRunnable{
   DPets plugin;
   Entity ent;
   Player p;
 
-  TargetTask(DPets c, Entity ee, Player owner)
-  {
-    this.plugin = c;
-    this.ent = ee;
-    this.p = owner;
+  TargetTask(DPets c, Entity ee, Player owner){
+    plugin = c;
+    ent = ee;
+    p = owner;
   }
 
-  public void run() {
-    if (this.ent.hasMetadata("Pets_Following"))
-    {
-      if (!this.ent.getWorld().getName().equalsIgnoreCase(this.p.getWorld().getName())) {
-        this.ent.teleport(this.p);
+  public void run(){
+    if(ent.hasMetadata("Pets_Following")){
+      if(!ent.getWorld().getName().equalsIgnoreCase(p.getWorld().getName())){
+        ent.teleport(p);
       }
 
-      if ((this.ent instanceof Wolf)) {
-        Wolf w = (Wolf)this.ent;
-        if (this.p.getLocation().distance(this.ent.getLocation()) > 4.0D)
-          w.setTarget(this.p);
-        else {
+      if(ent instanceof Wolf){
+        Wolf w = (Wolf)ent;
+        if(p.getLocation().distance(ent.getLocation()) > 4){
+          w.setTarget(p);
+        }else{
           w.setTarget(null);
         }
       }
 
-      if ((this.ent instanceof Ocelot)) {
-        Ocelot o = (Ocelot)this.ent;
-        if (this.p.getLocation().distance(this.ent.getLocation()) > 4.0D)
-          o.setTarget(this.p);
-        else {
+      if(ent instanceof Ocelot){
+        Ocelot o = (Ocelot)ent;
+        if(p.getLocation().distance(ent.getLocation()) > 4){
+          o.setTarget(p);
+        }else{
           o.setTarget(null);
         }
       }
 
-      if ((this.ent instanceof Creeper)) {
-        Creeper cr = (Creeper)this.ent;
-        if (this.p.getLocation().distance(this.ent.getLocation()) > 4.0D)
-          cr.setTarget(this.p);
-        else {
+      if(ent instanceof Creeper){
+        Creeper cr = (Creeper)ent;
+        if(p.getLocation().distance(ent.getLocation()) > 4){
+          cr.setTarget(p);
+        }else{
           cr.setTarget(null);
         }
       }
       
       if(ent instanceof Zombie){
-          Zombie z = (Zombie)this.ent;
+          Zombie z = (Zombie)ent;
           if(p.getLocation().distance(ent.getLocation()) > 4){
             z.setTarget(p);
           }else{
@@ -65,16 +62,17 @@ public class TargetTask extends BukkitRunnable
           }
       }
 
-      if ((this.ent instanceof IronGolem)) {
-        IronGolem ig = (IronGolem)this.ent;
-        if (this.p.getLocation().distance(this.ent.getLocation()) > 4.0D)
-          ig.setTarget(this.p);
-        else
+      if(ent instanceof IronGolem){
+        IronGolem ig = (IronGolem)ent;
+        if(p.getLocation().distance(ent.getLocation()) > 4){
+          ig.setTarget(p);
+        }else{
           ig.setTarget(null);
+        }
       }
-    }
-    else {
-      cancel();
+      
+    }else{
+    	this.cancel();
     }
   }
 }

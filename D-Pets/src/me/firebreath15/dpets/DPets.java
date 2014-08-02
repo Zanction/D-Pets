@@ -84,13 +84,11 @@ public boolean onCommand(CommandSender sender, Command cmd, String label, String
 
                   im.setLore(lore);
                   tag.setItemMeta(im);
-                  p.getInventory().addItem(new ItemStack[] { tag });
+                  p.getInventory().addItem(tag);
                   p.sendMessage("§e§l>>§a§lPET REDEEMED§e§l<<");
-                  p.playSound(p.getLocation(), Sound.LEVEL_UP, 5.0F, 1.0F);
+                  p.playSound(p.getLocation(), Sound.LEVEL_UP, 5, 1);
                 }
-              }catch(Exception localException){
-            	  
-              }
+              }catch(Exception e){}
             }else{
             	p.sendMessage("§7[§6§lD-PETS§7] §4You do not have any pets to redeem"); 
             }
