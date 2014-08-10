@@ -31,6 +31,7 @@ public class PetGUI
   static ItemStack togsta = new ItemStack(Material.LEVER);
   static ItemStack togfol = new ItemStack(Material.MINECART);
   static ItemStack togtyp = new ItemStack(Material.BOOK);
+  static ItemStack togage = new ItemStack(Material.MILK_BUCKET);
 
   static {
     ItemMeta im = delete.getItemMeta();
@@ -48,20 +49,23 @@ public class PetGUI
     ItemMeta im4 = togtyp.getItemMeta();
     im4.setDisplayName("§aToggle §ePet Type");
     togtyp.setItemMeta(im4);
+    
+    ItemMeta im5 = togage.getItemMeta();
+    im5.setDisplayName("§aToggle §eAge");
+    togage.setItemMeta(im5);
 
     gui.setItem(8, delete);
     gui.setItem(0, togsta);
     gui.setItem(1, togfol);
     gui.setItem(2, togtyp);
+    gui.setItem(3, togage);
   }
 
-  PetGUI(DPets c)
-  {
-    this.plugin = c;
+  PetGUI(DPets c){
+    plugin = c;
   }
 
-  public static void openGUI(Player p, Entity e)
-  {
+  public static void openGUI(Player p, Entity e){
     p.openInventory(gui);
     ent = e;
   }
@@ -70,8 +74,8 @@ public class PetGUI
   public void onClick(InventoryClickEvent e) {
     Player p = (Player)e.getWhoClicked();
     ItemStack c = e.getCurrentItem();
-    if (e.getInventory().getName().equalsIgnoreCase(gui.getName()))
-      if (c.getType() == Material.REDSTONE_BLOCK) {
+    if(e.getInventory().getName().equalsIgnoreCase(gui.getName()))
+      if(c.getType() == Material.REDSTONE_BLOCK){
         e.setCancelled(true);
         p.closeInventory();
 
@@ -153,33 +157,71 @@ public class PetGUI
           new TargetTask(this.plugin, ent, p).runTaskTimer(this.plugin, 20L, 10L);
           p.sendMessage("§7[§6§lD-PETS§7] §aPet is now following you");
         }
-      }else if (c.getType() == Material.BOOK) {
-        e.setCancelled(true);
-        p.closeInventory();
+      }else{
+    	  if(c.getType() == Material.BOOK){
+    		  e.setCancelled(true);
+    		  p.closeInventory();
 
-        if ((ent instanceof Ocelot)) {
-          Ocelot o = (Ocelot)ent;
+    		  if(ent instanceof Ocelot){
+    			  Ocelot o = (Ocelot)ent;
 
-          if (o.getCatType() == Ocelot.Type.BLACK_CAT) {
-            o.setCatType(Ocelot.Type.WILD_OCELOT);
-          }
+    			  if(o.getCatType() == Ocelot.Type.BLACK_CAT){
+    				  o.setCatType(Ocelot.Type.WILD_OCELOT);
+    			  }
 
-          if (o.getCatType() == Ocelot.Type.SIAMESE_CAT) {
-            o.setCatType(Ocelot.Type.BLACK_CAT);
-          }
+    			  if (o.getCatType() == Ocelot.Type.SIAMESE_CAT) {
+    				  o.setCatType(Ocelot.Type.BLACK_CAT);
+    			  }
 
-          if (o.getCatType() == Ocelot.Type.RED_CAT) {
-            o.setCatType(Ocelot.Type.SIAMESE_CAT);
-          }
+    			  if (o.getCatType() == Ocelot.Type.RED_CAT) {
+    				  o.setCatType(Ocelot.Type.SIAMESE_CAT);
+    			  }
 
-          if (o.getCatType() == Ocelot.Type.WILD_OCELOT) {
-            o.setCatType(Ocelot.Type.RED_CAT);
-          }
+    			  if (o.getCatType() == Ocelot.Type.WILD_OCELOT) {
+    				  o.setCatType(Ocelot.Type.RED_CAT);
+    			  }
         }else{
         	if(ent instanceof Wolf || ent instanceof IronGolem || ent instanceof Creeper || ent instanceof Zombie){
         		p.sendMessage("§7[§6§lD-PETS§7] §cThat option has no effect for this type of pet!");
         	}
         }
+      }else{
+    	  if(c.getType()==Material.MILK_BUCKET){
+    		  e.setCancelled(true);
+    		  p.closeInventory();
+    		  
+    		  if(ent instanceof Wolf){
+    			  Wolf w = (Wolf)ent;
+    			  if(w.isAdult()){
+    				  w.setBaby();
+    			  }else{
+    				  w.setAdult();
+    			  }
+    		  }else{
+    			  if(ent instanceof Ocelot){
+        			  Ocelot o = (Ocelot)ent;
+        			  if(o.isAdult()){
+        				  o.setBaby();
+        			  }else{
+        				  o.setAdult();
+        			  }
+        		  }else{
+        			  if(ent instanceof Zombie){
+            			  Zombie z = (Zombie)ent;
+            			  if(z.isBaby()){
+            				  z.setBaby(false);
+            			  }else{
+            				  z.setBaby(true);
+            			  }
+            		  }else{
+            			  if(ent instanceof Creeper || ent instanceof IronGolem){
+            				  p.sendMessage("§7[§6§lD-PETS§7] §cThat option has no effect for this type of pet!");
+            			  }
+            		  }
+        		  }
+    		  }
+    	  }
       }
+  }
   }
 }

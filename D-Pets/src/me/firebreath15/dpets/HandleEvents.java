@@ -43,21 +43,21 @@ public class HandleEvents
 	  if(e.getEntity() instanceof IronGolem){
 		  IronGolem ig = (IronGolem)e.getEntity();
 		  
-		  if(ig.getTarget() instanceof Zombie){
+		  if(e.getTarget() instanceof Zombie){
 			  Zombie z = (Zombie)e.getTarget();
 			  if(plugin.getConfig().contains(z.getUniqueId().toString())){
 				  ig.setTarget(null);
 			  }
 		  }
 		  
-		  if(ig.getTarget() instanceof Wolf){
+		  if(e.getTarget() instanceof Wolf){
 			  Wolf w = (Wolf)e.getTarget();
 			  if(plugin.getConfig().contains(w.getUniqueId().toString())){
 				  ig.setTarget(null);
 			  }
 		  }
 		  
-		  if(ig.getTarget() instanceof Creeper){
+		  if(e.getTarget() instanceof Creeper){
 			  Creeper cr = (Creeper)e.getTarget();
 			  if(plugin.getConfig().contains(cr.getUniqueId().toString())){
 				  ig.setTarget(null);
@@ -67,21 +67,21 @@ public class HandleEvents
 		  if(e.getEntity() instanceof Wolf){
 			  Wolf w = (Wolf)e.getEntity();
 			  
-			  if(w.getTarget() instanceof Zombie){
+			  if(e.getTarget() instanceof Zombie){
 				  Zombie z = (Zombie)e.getTarget();
 				  if(plugin.getConfig().contains(z.getUniqueId().toString())){
 					  w.setTarget(null);
 				  }
 			  }
 			  
-			  if(w.getTarget() instanceof Wolf){
+			  if(e.getTarget() instanceof Wolf){
 				  Wolf ww = (Wolf)e.getTarget();
 				  if(plugin.getConfig().contains(ww.getUniqueId().toString())){
 					  w.setTarget(null);
 				  }
 			  }
 			  
-			  if(w.getTarget() instanceof Creeper){
+			  if(e.getTarget() instanceof Creeper){
 				  Creeper cr = (Creeper)e.getTarget();
 				  if(plugin.getConfig().contains(cr.getUniqueId().toString())){
 					  w.setTarget(null);

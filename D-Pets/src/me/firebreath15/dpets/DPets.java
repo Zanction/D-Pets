@@ -16,26 +16,27 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
-public class DPets extends JavaPlugin
-{
-  public void onEnable()
-  {
+public class DPets extends JavaPlugin{
+	
+  public void onEnable(){
     reloadConfig();
     getServer().getPluginManager().registerEvents(new HandleEvents(this), this);
     getServer().getPluginManager().registerEvents(new SpawnListener(this), this);
     getServer().getPluginManager().registerEvents(new PetGUI(this), this);
   }
 
-  public WorldGuardPlugin getWorldGuard() {
-    Plugin plug = getServer().getPluginManager().getPlugin("WorldGuard");
-    if (plug == null) {
-      return null;
+  public WorldGuardPlugin getWorldGuard(){
+    Plugin plug = this.getServer().getPluginManager().getPlugin("WorldGuard");
+    
+    if(plug == null){
+    	return null;
     }
+    
     return (WorldGuardPlugin)plug;
   }
 
   @SuppressWarnings({ "deprecation", "unchecked", "rawtypes" })
-public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
+  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
     if (cmd.getName().equalsIgnoreCase("pet") || cmd.getName().equalsIgnoreCase("dpets")) {
       if ((sender instanceof Player)) {
         Player p = (Player)sender;

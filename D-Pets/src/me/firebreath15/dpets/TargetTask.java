@@ -66,6 +66,10 @@ public class TargetTask extends BukkitRunnable{
         IronGolem ig = (IronGolem)ent;
         if(p.getLocation().distance(ent.getLocation()) > 4){
           ig.setTarget(p);
+          if(!(ig.getTarget() instanceof Player)){
+        	  ig.setTarget(null);
+        	  ig.setTarget(p);
+          }
         }else{
           ig.setTarget(null);
         }
