@@ -21,9 +21,8 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class PetGUI
-  implements Listener
-{
+public class PetGUI implements Listener{
+	
   DPets plugin;
   static Entity ent;
   public static Inventory gui = Bukkit.createInventory(null, 9, "Pet Settings");

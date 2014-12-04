@@ -1,7 +1,9 @@
+#For use with WorldGuard 6.0.0-Beta02 and WorldEdit 5.6.3. As of December 4, 2014.
 name: DPets
-version: 1.1.8
+version: 1.1.9
 main: me.firebreath15.dpets.DPets
 author: FireBreath15
+depend: [WorldEdit, WorldGuard]
 commands:
   pet:
     description: Donor Pets Main Command

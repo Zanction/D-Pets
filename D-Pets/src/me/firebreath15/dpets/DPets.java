@@ -35,7 +35,7 @@ public class DPets extends JavaPlugin{
     return (WorldGuardPlugin)plug;
   }
 
-  @SuppressWarnings({ "deprecation", "unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes" })
   public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
     if (cmd.getName().equalsIgnoreCase("pet") || cmd.getName().equalsIgnoreCase("dpets")) {
       if ((sender instanceof Player)) {
